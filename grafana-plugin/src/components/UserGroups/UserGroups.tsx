@@ -16,8 +16,8 @@ import { Item } from './UserGroups.types';
 import styles from './UserGroups.module.css';
 
 interface UserGroupsProps {
-  value: Array<Array<User['pk']>>;
-  onChange: (value: Array<Array<User['pk']>>) => void;
+  value: any[];
+  onChange: (value: any[]) => void;
   isMultipleGroups: boolean;
   renderUser: (id: string) => React.ReactElement;
   showError?: boolean;

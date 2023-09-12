@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import BaseStore from 'models/base_store';
 import { makeRequest } from 'network';
@@ -26,6 +26,8 @@ export class FiltersStore extends BaseStore {
     if (savedFilters) {
       this._globalValues = { ...savedFilters };
     }
+
+    makeObservable(this);
   }
 
   set globalValues(value: any) {

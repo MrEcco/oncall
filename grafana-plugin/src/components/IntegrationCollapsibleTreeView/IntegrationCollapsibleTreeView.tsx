@@ -21,7 +21,7 @@ export interface IntegrationCollapsibleItem {
 }
 
 interface IntegrationCollapsibleTreeViewProps {
-  configElements: Array<IntegrationCollapsibleItem | IntegrationCollapsibleItem[]>;
+  configElements: any[];
 }
 
 const IntegrationCollapsibleTreeView: React.FC<IntegrationCollapsibleTreeViewProps> = observer((props) => {
@@ -61,7 +61,7 @@ const IntegrationCollapsibleTreeView: React.FC<IntegrationCollapsibleTreeViewPro
     </div>
   );
 
-  function getStartingExpandedState(): Array<boolean | boolean[]> {
+  function getStartingExpandedState(): any[] {
     const expandedArrayValues = new Array<boolean | boolean[]>(configElements.length);
     configElements.forEach((elem, index) => {
       if (Array.isArray(elem)) {

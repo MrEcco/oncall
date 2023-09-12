@@ -140,80 +140,82 @@ class Incidents extends React.Component<IncidentsPageProps, IncidentsPageState> 
     );
   }
 
-  renderCards(filtersState, setFiltersState, filtersOnFiltersValueChange) {
+  renderCards() {
     const { store } = this.props;
 
-    const { values } = filtersState;
+    return (filtersState, setFiltersState, filtersOnFiltersValueChange) => {
+      const { values } = filtersState;
 
-    const { newIncidents, acknowledgedIncidents, resolvedIncidents, silencedIncidents } = store.alertGroupStore;
+      const { newIncidents, acknowledgedIncidents, resolvedIncidents, silencedIncidents } = store.alertGroupStore;
 
-    const { count: newIncidentsCount } = newIncidents;
-    const { count: acknowledgedIncidentsCount } = acknowledgedIncidents;
-    const { count: resolvedIncidentsCount } = resolvedIncidents;
-    const { count: silencedIncidentsCount } = silencedIncidents;
+      const { count: newIncidentsCount } = newIncidents;
+      const { count: acknowledgedIncidentsCount } = acknowledgedIncidents;
+      const { count: resolvedIncidentsCount } = resolvedIncidents;
+      const { count: silencedIncidentsCount } = silencedIncidents;
 
-    const status = values.status || [];
+      const status = values.status || [];
 
-    return (
-      <div className={cx('cards', 'row')}>
-        <div key="new" className={cx('col')}>
-          <CardButton
-            icon={<Icon name="bell" size="xxl" />}
-            description="Firing"
-            title={newIncidentsCount}
-            selected={status.includes(IncidentStatus.Firing)}
-            onClick={this.getStatusButtonClickHandler(
-              IncidentStatus.Firing,
-              filtersState,
-              setFiltersState,
-              filtersOnFiltersValueChange
-            )}
-          />
+      return (
+        <div className={cx('cards', 'row')}>
+          <div key="new" className={cx('col')}>
+            <CardButton
+              icon={<Icon name="bell" size="xxl" />}
+              description="Firing"
+              title={newIncidentsCount}
+              selected={status.includes(IncidentStatus.Firing)}
+              onClick={this.getStatusButtonClickHandler(
+                IncidentStatus.Firing,
+                filtersState,
+                setFiltersState,
+                filtersOnFiltersValueChange
+              )}
+            />
+          </div>
+          <div key="acknowledged" className={cx('col')}>
+            <CardButton
+              icon={<Icon name="eye" size="xxl" />}
+              description="Acknowledged"
+              title={acknowledgedIncidentsCount}
+              selected={status.includes(IncidentStatus.Acknowledged)}
+              onClick={this.getStatusButtonClickHandler(
+                IncidentStatus.Acknowledged,
+                filtersState,
+                setFiltersState,
+                filtersOnFiltersValueChange
+              )}
+            />
+          </div>
+          <div key="resolved" className={cx('col')}>
+            <CardButton
+              icon={<Icon name="check" size="xxl" />}
+              description="Resolved"
+              title={resolvedIncidentsCount}
+              selected={status.includes(IncidentStatus.Resolved)}
+              onClick={this.getStatusButtonClickHandler(
+                IncidentStatus.Resolved,
+                filtersState,
+                setFiltersState,
+                filtersOnFiltersValueChange
+              )}
+            />
+          </div>
+          <div key="silenced" className={cx('col')}>
+            <CardButton
+              icon={<Icon name="bell-slash" size="xxl" />}
+              description="Silenced"
+              title={silencedIncidentsCount}
+              selected={status.includes(IncidentStatus.Silenced)}
+              onClick={this.getStatusButtonClickHandler(
+                IncidentStatus.Silenced,
+                filtersState,
+                setFiltersState,
+                filtersOnFiltersValueChange
+              )}
+            />
+          </div>
         </div>
-        <div key="acknowledged" className={cx('col')}>
-          <CardButton
-            icon={<Icon name="eye" size="xxl" />}
-            description="Acknowledged"
-            title={acknowledgedIncidentsCount}
-            selected={status.includes(IncidentStatus.Acknowledged)}
-            onClick={this.getStatusButtonClickHandler(
-              IncidentStatus.Acknowledged,
-              filtersState,
-              setFiltersState,
-              filtersOnFiltersValueChange
-            )}
-          />
-        </div>
-        <div key="resolved" className={cx('col')}>
-          <CardButton
-            icon={<Icon name="check" size="xxl" />}
-            description="Resolved"
-            title={resolvedIncidentsCount}
-            selected={status.includes(IncidentStatus.Resolved)}
-            onClick={this.getStatusButtonClickHandler(
-              IncidentStatus.Resolved,
-              filtersState,
-              setFiltersState,
-              filtersOnFiltersValueChange
-            )}
-          />
-        </div>
-        <div key="silenced" className={cx('col')}>
-          <CardButton
-            icon={<Icon name="bell-slash" size="xxl" />}
-            description="Silenced"
-            title={silencedIncidentsCount}
-            selected={status.includes(IncidentStatus.Silenced)}
-            onClick={this.getStatusButtonClickHandler(
-              IncidentStatus.Silenced,
-              filtersState,
-              setFiltersState,
-              filtersOnFiltersValueChange
-            )}
-          />
-        </div>
-      </div>
-    );
+      );
+    };
   }
 
   getStatusButtonClickHandler = (
@@ -262,7 +264,7 @@ class Incidents extends React.Component<IncidentsPageProps, IncidentsPageState> 
           query={query}
           page={PAGE.Incidents}
           onChange={this.handleFiltersChange}
-          extraFilters={this.renderCards.bind(this)}
+          extraFilters={this.renderCards()}
           grafanaTeamStore={store.grafanaTeamStore}
           defaultFilters={{
             team: [],

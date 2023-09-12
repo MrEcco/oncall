@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import { RemoteFiltersType } from 'containers/RemoteFilters/RemoteFilters.types';
 import BaseStore from 'models/base_store';
@@ -101,6 +101,8 @@ export class ScheduleStore extends BaseStore {
     super(rootStore);
 
     this.path = '/schedules/';
+
+    makeObservable(this);
   }
 
   @action
@@ -147,6 +149,7 @@ export class ScheduleStore extends BaseStore {
     };
   }
 
+  @action
   async updateItem(id: Schedule['id'], fromOrganization = false) {
     if (id) {
       let schedule;
@@ -214,6 +217,7 @@ export class ScheduleStore extends BaseStore {
 
   // ------- NEW SCHEDULES API ENDPOINTS ---------
 
+  @action
   async createRotation(scheduleId: Schedule['id'], isOverride: boolean, params: Partial<Shift>) {
     const type = isOverride ? 3 : 2;
 
@@ -230,10 +234,12 @@ export class ScheduleStore extends BaseStore {
     return response;
   }
 
+  @action
   setRotationFormLiveParams(params: RotationFormLiveParams) {
     this.rotationFormLiveParams = params;
   }
 
+  @action
   async updateRotationPreview(
     scheduleId: Schedule['id'],
     shiftId: Shift['id'] | 'new',
@@ -308,6 +314,7 @@ export class ScheduleStore extends BaseStore {
     this.rotationFormLiveParams = undefined;
   }
 
+  @action
   async updateRotation(shiftId: Shift['id'], params: Partial<Shift>) {
     const response = await makeRequest(`/oncall_shifts/${shiftId}`, {
       params: { force: true },
@@ -323,6 +330,7 @@ export class ScheduleStore extends BaseStore {
     return response;
   }
 
+  @action
   async updateRotationAsNew(shiftId: Shift['id'], params: Partial<Shift>) {
     const response = await makeRequest(`/oncall_shifts/${shiftId}`, {
       data: { ...params },
@@ -337,6 +345,7 @@ export class ScheduleStore extends BaseStore {
     return response;
   }
 
+  @action
   updateRelatedEscalationChains = async (id: Schedule['id']) => {
     const response = await makeRequest(`/schedules/${id}/related_escalation_chains`, {
       method: 'GET',
@@ -350,6 +359,7 @@ export class ScheduleStore extends BaseStore {
     return response;
   };
 
+  @action
   updateRelatedUsers = async (id: Schedule['id']) => {
     const { users } = await makeRequest(`/schedules/${id}/next_shifts_per_user`, {
       method: 'GET',
@@ -363,6 +373,7 @@ export class ScheduleStore extends BaseStore {
     return users;
   };
 
+  @action
   async updateOncallShifts(scheduleId: Schedule['id']) {
     const { results } = await makeRequest(`/oncall_shifts/`, {
       params: {
@@ -414,6 +425,7 @@ export class ScheduleStore extends BaseStore {
     }).catch(this.onApiError);
   }
 
+  @action
   async updateEvents(scheduleId: Schedule['id'], startMoment: dayjs.Dayjs, type: RotationType = 'rotation', days = 9) {
     const dayBefore = startMoment.subtract(1, 'day');
 
@@ -466,6 +478,7 @@ export class ScheduleStore extends BaseStore {
     return await makeRequest(`/shift_swaps/${shiftSwapId}/take`, { method: 'POST' }).catch(this.onApiError);
   }
 
+  @action
   async loadShiftSwap(id: ShiftSwap['id']) {
     const result = await makeRequest(`/shift_swaps/${id}`, {});
 
@@ -474,6 +487,7 @@ export class ScheduleStore extends BaseStore {
     return result;
   }
 
+  @action
   async updateShiftSwaps(scheduleId: Schedule['id'], startMoment: dayjs.Dayjs, days = 9) {
     const fromString = getFromString(startMoment);
 

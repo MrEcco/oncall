@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import BaseStore from 'models/base_store';
 import { GrafanaTeam } from 'models/grafana_team/grafana_team.types';
@@ -16,6 +16,8 @@ export class GrafanaTeamStore extends BaseStore {
     super(rootStore);
 
     this.path = '/teams/';
+
+    makeObservable(this);
   }
 
   @action

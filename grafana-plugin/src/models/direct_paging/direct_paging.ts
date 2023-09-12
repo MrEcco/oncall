@@ -4,12 +4,15 @@ import { makeRequest } from 'network';
 import { RootStore } from 'state';
 
 import { ManualAlertGroupPayload } from './direct_paging.types';
+import { makeObservable } from 'mobx';
 
 export class DirectPagingStore extends BaseStore {
   constructor(rootStore: RootStore) {
     super(rootStore);
 
     this.path = '/direct_paging/';
+
+    makeObservable(this);
   }
 
   async createManualAlertRule(data: ManualAlertGroupPayload) {

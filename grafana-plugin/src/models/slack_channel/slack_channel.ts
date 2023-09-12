@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import BaseStore from 'models/base_store';
 import { makeRequest } from 'network';
@@ -17,6 +17,8 @@ export class SlackChannelStore extends BaseStore {
     super(rootStore);
 
     this.path = '/slack_channels/';
+
+    makeObservable(this);
   }
 
   @action // deprecated, use updateItem instead

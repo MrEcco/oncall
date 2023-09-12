@@ -101,6 +101,8 @@ class RemoteFilters extends Component<RemoteFiltersProps, RemoteFiltersState> {
       return <LoadingPlaceholder text="Loading filters..." />;
     }
 
+    return null;
+
     const options = filterOptions
       .filter(
         (item: FilterOption) =>

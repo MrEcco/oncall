@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import BaseStore from 'models/base_store';
 import { makeRequest } from 'network';
@@ -13,6 +13,7 @@ export class OrganizationStore extends BaseStore {
   constructor(rootStore: RootStore) {
     super(rootStore);
     this.path = '/organization/';
+    makeObservable(this);
   }
 
   @action

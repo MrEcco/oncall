@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 import { AlertReceiveChannel } from 'models/alert_receive_channel/alert_receive_channel.types';
 import BaseStore from 'models/base_store';
@@ -18,6 +18,8 @@ export class HeartbeatStore extends BaseStore {
     super(rootStore);
 
     this.path = '/heartbeats/';
+
+    makeObservable(this);
   }
 
   @action

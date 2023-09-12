@@ -1,9 +1,6 @@
 export interface CheatSheetItem {
   name: string;
-  listItems?: Array<{
-    listItemName?: string;
-    codeExample?: string;
-  }>;
+  listItems?: any[];
 }
 
 export interface CheatSheetInterface {

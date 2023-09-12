@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 
 import { Alert } from 'models/alertgroup/alertgroup.types';
 import BaseStore from 'models/base_store';
@@ -15,6 +15,8 @@ export class ResolutionNotesStore extends BaseStore {
     super(rootStore);
 
     this.path = '/resolution_notes/';
+
+    makeObservable(this);
   }
 
   async createResolutionNote(alertGroupId: Alert['pk'], text: string) {

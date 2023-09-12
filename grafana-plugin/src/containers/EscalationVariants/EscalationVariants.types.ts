@@ -5,7 +5,7 @@ export enum EscalationVariantsTab {
 }
 
 export interface UserAvailability {
-  warnings: Array<{ error: string; data: any }>;
+  warnings: any[];
 }
 
 export enum ResponderType {

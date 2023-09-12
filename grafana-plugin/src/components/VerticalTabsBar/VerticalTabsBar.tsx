@@ -15,7 +15,7 @@ export const VerticalTab: FC<TabProps> = ({ children }) => {
 };
 
 interface VerticalTabsBarProps {
-  children: Array<React.ReactElement<TabProps>> | React.ReactElement<TabProps>;
+  children: any[] | React.ReactElement<TabProps>;
   activeTab: string;
   onChange: (id: string) => void;
 }

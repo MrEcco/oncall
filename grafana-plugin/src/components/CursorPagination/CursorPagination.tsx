@@ -8,7 +8,7 @@ import Text from 'components/Text/Text';
 interface CursorPaginationProps {
   current: string;
   onChange: (cursor: string, direction: 'prev' | 'next') => void;
-  itemsPerPageOptions: Array<SelectableValue<number>>;
+  itemsPerPageOptions: any[];
   itemsPerPage: number;
   onChangeItemsPerPage: (value: number) => void;
   prev: string;

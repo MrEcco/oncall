@@ -259,9 +259,9 @@ interface CustomFieldSectionRendererState {
   selectedAlertManagerOption: string;
   selectedContactPointOption: string;
 
-  dataSources: Array<{ label: string; value: string }>;
-  contactPoints: Array<{ label: string; value: string }>;
-  allContactPoints: Array<{ name: string; uid: string; contact_points: string[] }>;
+  dataSources: any[];
+  contactPoints: any[];
+  allContactPoints: any[];
 }
 
 const CustomFieldSectionRenderer: React.FC<CustomFieldSectionRendererProps> = ({

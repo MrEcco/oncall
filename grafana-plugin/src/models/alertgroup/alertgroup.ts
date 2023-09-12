@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import qs from 'query-string';
 
 import { AlertReceiveChannel } from 'models/alert_receive_channel/alert_receive_channel.types';
@@ -74,6 +74,8 @@ export class AlertGroupStore extends BaseStore {
     super(rootStore);
 
     this.path = '/alertgroups/';
+
+    makeObservable(this);
   }
 
   async attachAlert(pk: Alert['pk'], rootPk: Alert['pk']) {
@@ -263,8 +265,7 @@ export class AlertGroupStore extends BaseStore {
     this.updateAlertGroups();
   }
 
-  @action
-  async updateAlertGroups() {
+  @action async updateAlertGroups() {
     this.alertGroupsLoading = true;
 
     const {

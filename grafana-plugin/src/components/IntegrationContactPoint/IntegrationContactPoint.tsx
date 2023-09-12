@@ -34,15 +34,15 @@ interface IntegrationContactPointState {
   isDrawerOpen: boolean;
   isConnectOpen: boolean;
   isExistingContactPoint: boolean;
-  allContactPoints: Array<{ name: string; uid: string; contact_points: string[] }>;
+  allContactPoints: any[];
 
   // dropdown selected values
   selectedAlertManager: string;
   selectedContactPoint: string;
 
   // dropdown options
-  dataSourceOptions: Array<{ label: string; value: string }>;
-  contactPointOptions: Array<{ label: string; value: string }>;
+  dataSourceOptions: any[];
+  contactPointOptions: any[];
 }
 
 const IntegrationContactPoint: React.FC<{
